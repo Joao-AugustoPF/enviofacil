@@ -38,6 +38,7 @@ import CookiesPage from "./pages/Cookies";
 import CarreirasPage from "./pages/Carreiras";
 import ImprensaPage from "./pages/Imprensa";
 import BlogPage from "./pages/Blog";
+import RecipientsPage from "./pages/Recipients";
 
 const queryClient = new QueryClient();
 
@@ -58,8 +59,11 @@ const App = () => (
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<LandingPage />} />
+                <Route
+                  path="/funcionalidades"
+                  element={<FuncionalidadesPage />}
+                />
                 <Route path="/sobre" element={<SobrePage />} />
-
                 <Route path="/ajuda" element={<AjudaPage />} />
                 <Route path="/contato" element={<Contato />} />
                 <Route path="/status" element={<StatusPage />} />
@@ -70,10 +74,6 @@ const App = () => (
                 <Route path="/carreiras" element={<CarreirasPage />} />
                 <Route path="/imprensa" element={<ImprensaPage />} />
                 <Route path="/blog" element={<BlogPage />} />
-                <Route
-                  path="/funcionalidades"
-                  element={<FuncionalidadesPage />}
-                />
                 {/* <Route path="/dashboard" element={<RootRedirect />} /> */}
 
                 <Route element={<ProtectedLayout />}>
@@ -95,6 +95,7 @@ const App = () => (
                     path="/envios/:id/editar"
                     element={<ShipmentEditPage />}
                   />
+                  <Route path="/destinatarios" element={<RecipientsPage />} />
                   <Route path="/topups" element={<TopupsPage />} />
                   <Route path="/finance" element={<FinancePage />} />
                   <Route path="/support" element={<SupportPage />} />

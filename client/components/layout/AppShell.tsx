@@ -130,6 +130,9 @@ export function ProtectedLayout() {
             <NavItem to="/shipments" icon={<Package className="h-4 w-4" />}>
               Envios
             </NavItem>
+            <NavItem to="/destinatarios" icon={<Users className="h-4 w-4" />}>
+              Destinatários
+            </NavItem>
             <NavItem to="/simulacao" icon={<Calculator className="h-4 w-4" />}>
               Simular frete
             </NavItem>
