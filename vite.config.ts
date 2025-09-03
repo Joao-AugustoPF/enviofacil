@@ -1,6 +1,18 @@
 import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import fs from "fs";
+
+console.log(">>> ls de __dirname:");
+console.log(fs.readdirSync(__dirname));
+
+console.log(">>> ls de server/:");
+try {
+  console.log(fs.readdirSync(path.resolve(__dirname, "server")));
+} catch (e) {
+  console.error("Erro lendo pasta server/:", e.message);
+}
+
 import { createServer } from "./server";
 
 // https://vitejs.dev/config/

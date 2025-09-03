@@ -1,43 +1,34 @@
-# Multi-stage build for production
+# Multi-stage build for EnvioFácil app
 # Build stage
-FROM node:22-alpine AS builder
+FROM node:20-alpine AS builder
 
-ENV NODE_ENV=production
+# Enable corepack and pnpm matching the project
+RUN corepack enable
 WORKDIR /app
 
-# Enable corepack and PNPM
-RUN corepack enable
-
-# Install dependencies (dev included for build)
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# Copy package manifest and install deps
+COPY package.json ./
+# Copy lockfile if present (optional)
+COPY pnpm-lock.yaml* ./
+RUN corepack prepare pnpm@10.14.0 --activate \
+  && pnpm install --frozen-lockfile=false
 
 # Copy source and build
 COPY . .
-RUN pnpm build
-
-# Prune to production deps
-RUN pnpm prune --prod
-
+RUN pnpm build \
+  && pnpm prune --prod
 
 # Runtime stage
-FROM node:22-alpine AS runner
+FROM node:20-alpine AS runner
 ENV NODE_ENV=production
 WORKDIR /app
 
-RUN corepack enable
-
-# Copy only production deps and build artifacts
+# Copy only what is needed to run
+COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder /app/dist ./dist
 
-# Environment and port
-ENV PORT=3000
 EXPOSE 3000
+ENV PORT=3000
 
-# Start server (serves SPA and API on same port)
-CMD ["node", "dist/server/production.mjs"]
-
-
+CMD ["node", "dist/server/node-build.mjs"]
