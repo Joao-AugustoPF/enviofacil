@@ -25,12 +25,25 @@ import IntegrationsPage from "./pages/Integrations";
 import AdminPage from "./pages/Admin";
 import SimulationPage from "./pages/Simulation.tsx";
 import SimulationResultsPage from "./pages/SimulationResults.tsx";
+import LandingPage from "./pages/LandingPage.tsx";
+import FuncionalidadesPage from "./pages/Funcionalidades.tsx";
+import SobrePage from "./pages/Sobre";
+import AjudaPage from "./pages/Ajuda";
+import Contato from "./pages/Contato.tsx";
+import StatusPage from "./pages/Status";
+import ComunidadePage from "./pages/Comunidade";
+import TermosPage from "./pages/Termos";
+import PrivacidadePage from "./pages/Privacidade";
+import CookiesPage from "./pages/Cookies";
+import CarreirasPage from "./pages/Carreiras";
+import ImprensaPage from "./pages/Imprensa";
+import BlogPage from "./pages/Blog";
 
 const queryClient = new QueryClient();
 
 function RootRedirect() {
   const { token } = useAuth();
-  return <Navigate to={token ? "/dashboard" : "/login"} replace />;
+  return <Navigate to={token ? "/dashboard" : "/"} replace />;
 }
 
 const App = () => (
@@ -44,7 +57,24 @@ const App = () => (
             <SimulationProvider>
               <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/" element={<RootRedirect />} />
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/sobre" element={<SobrePage />} />
+
+                <Route path="/ajuda" element={<AjudaPage />} />
+                <Route path="/contato" element={<Contato />} />
+                <Route path="/status" element={<StatusPage />} />
+                <Route path="/comunidade" element={<ComunidadePage />} />
+                <Route path="/termos" element={<TermosPage />} />
+                <Route path="/privacidade" element={<PrivacidadePage />} />
+                <Route path="/cookies" element={<CookiesPage />} />
+                <Route path="/carreiras" element={<CarreirasPage />} />
+                <Route path="/imprensa" element={<ImprensaPage />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route
+                  path="/funcionalidades"
+                  element={<FuncionalidadesPage />}
+                />
+                {/* <Route path="/dashboard" element={<RootRedirect />} /> */}
 
                 <Route element={<ProtectedLayout />}>
                   <Route path="/dashboard" element={<Dashboard />} />
