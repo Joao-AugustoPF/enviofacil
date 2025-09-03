@@ -58,7 +58,7 @@ export function ProtectedLayout() {
         <div className="container flex h-14 items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link to="/dashboard" className="font-extrabold tracking-tight">
-              EnvioFácil
+              <img src="/logo.png" alt="EnvioFácil" className="w-24 h-auto" />
             </Link>
             <Separator orientation="vertical" className="h-6" />
             <span className="text-sm text-muted-foreground hidden sm:inline">
