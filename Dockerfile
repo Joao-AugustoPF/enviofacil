@@ -11,7 +11,7 @@ COPY package.json ./
 # Copy lockfile if present (optional)
 COPY pnpm-lock.yaml* ./
 RUN corepack prepare pnpm@10.14.0 --activate \
-  && pnpm install --frozen-lockfile=false
+  && pnpm install
 
 # Copy source and build
 COPY . .
